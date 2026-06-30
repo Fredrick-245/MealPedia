@@ -31,6 +31,13 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Cookpedia to access your photos so you can set a profile picture.",
+          "cameraPermission": "Allow Cookpedia to use your camera so you can take a profile picture."
+        }
       ]
     ]
   }

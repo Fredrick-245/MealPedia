@@ -5,16 +5,19 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { RecipesModule } from '../recipes/recipes.module';
+import { AuthModule } from '../auth/auth.module';
+import { DiscoverModule } from '../discover/discover.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env', '../../.env'],
+      envFilePath: ['.env', '../.env'],
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'apps/api/src/schema.gql'),
+      autoSchemaFile: join(process.cwd(), 'apps/api/schema.gql'),
       sortSchema: true,
       playground: process.env.NODE_ENV !== 'production',
     }),
@@ -32,6 +35,9 @@ import { RecipesModule } from '../recipes/recipes.module';
       }),
     }),
     RecipesModule,
+    AuthModule,
+    DiscoverModule,
+    NotificationsModule,
   ],
 })
 export class AppModule {}

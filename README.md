@@ -7,7 +7,7 @@ An Nx monorepo for a recipe app with an Expo mobile client, NestJS GraphQL API, 
 | Layer | Technology |
 | --- | --- |
 | Monorepo | [Nx](https://nx.dev) |
-| Mobile | Expo (`apps/mobile`) |
+| Mobile | Expo SDK 54 (`apps/mobile`) — compatible with App Store Expo Go |
 | API | NestJS + GraphQL (`apps/api`) |
 | Database | PostgreSQL via Docker + TypeORM |
 
@@ -26,7 +26,7 @@ cookpedia/
 
 - Node.js **20.19.4+**
 - Docker Desktop (for PostgreSQL)
-- [Expo Go](https://expo.dev/go) on your device, or Xcode / Android Studio for simulators
+- **Expo Go** from the App Store / Play Store (supports SDK 54)
 
 ## Getting started
 
@@ -60,14 +60,20 @@ cookpedia/
    npm run mobile:start
    ```
 
-   Then press `i` for iOS simulator, `a` for Android emulator, or scan the QR code with Expo Go.
+   Run this in your **system terminal** (Terminal.app, iTerm, etc.), not only through IDE task runners — Expo needs a real TTY to render the QR code.
 
-   Or run directly:
+   You should see a QR code to scan with **Expo Go**. Press `i` for iOS simulator or `a` for Android emulator.
+
+   If the QR code still does not appear, start Expo directly:
 
    ```sh
-   npm run mobile:ios
-   npm run mobile:android
-   npm run mobile:web
+   cd apps/mobile && npx expo start --go --lan
+   ```
+
+   For a device on a different network, use tunnel mode:
+
+   ```sh
+   npm run mobile:start:tunnel
    ```
 
 ## GraphQL API
@@ -96,6 +102,14 @@ query {
 | Physical device | Set `EXPO_PUBLIC_API_URL` to your machine's LAN IP |
 
 Override with `EXPO_PUBLIC_API_URL` in `.env`.
+
+## Expo Go compatibility
+
+This project uses **Expo SDK 54**, which matches the version of **Expo Go** available on the App Store and Play Store.
+
+If you see *"Project is incompatible with this version of Expo Go"*, your phone's Expo Go app is outdated — update it from the store. If you previously used SDK 55, pull the latest changes and run `npm install` again.
+
+To use SDK 55+ before Expo Go catches up, you need a [development build](https://docs.expo.dev/develop/development-builds/introduction/) instead of Expo Go.
 
 ## Useful commands
 
